@@ -40,6 +40,8 @@ namespace Blockchain
             {
                 prehash = BlockChain.ElementAt(geti()-1).Hash;
                 Bloque block = new Bloque(geti(), pnom, pmot, pfhash, phash, prehash);
+                BlockChain.Add(block);
+                incrementar_i();
             }
             
         }
