@@ -4,18 +4,24 @@ namespace Blockchain
 {
     public class Bloque
     {
-        String Nombre;
-        String Motivo;
-        String HArchivo;
-        DateTime Fecha;
+        public long Indice { get; set; }
+        public String Nombre { get; set; }
+        public String Motivo { get; set; }
+        public String FileHash { get; set; }
+        public String Hash { get; set; }
+        public String PrevHash { get; set; }
+        public DateTime Fecha { get; set; }
         public Bloque() { 
         }
-        public Bloque(string pnom, string pmot, string parch)
+        public Bloque(long pindi, string pnom, string pmot, string pfhash, string phash, string pprehash)
         {
-            this.Motivo = pmot;
-            this.Nombre = pnom;
-            this.HArchivo = parch;
             this.Fecha = DateTime.Now;
+            this.Indice = pindi;
+            this.Nombre = pnom;
+            this.Motivo = pmot;
+            this.FileHash = pfhash;|
+            this.Hash = phash;
+            this.PrevHash = pprehash;
         }
     }
 }
