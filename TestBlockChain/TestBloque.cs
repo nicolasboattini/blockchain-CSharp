@@ -7,9 +7,14 @@ namespace TestBlockchain
     public class TestBloque
     {
         [TestMethod]
-        public void TestDeBloque_DebeCrearBloque(string pnom, string pmot, string parch)
+        public void TestDeHash_CompararHashes()
         {
-            var b = new Bloque(pnom, pmot, parch);
+            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            Bloque b = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            Manager c = new Manager();
+            string ha = c.Hash256(a);
+            string hb = c.Hash256(b);
+            Assert.AreEqual(ha, hb);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-
 namespace Blockchain
 {
     public class Bloque
@@ -27,7 +26,7 @@ namespace Blockchain
         }
         public Bloque() {
         }
-        public Bloque(long pindi, string pnom, string pmot, string pfhash, string phash, string pprehash)
+        public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, string phash)
         {
             this.Fecha = DateTime.Now;
             this.Indice = pindi;
@@ -49,5 +48,6 @@ namespace Blockchain
             byte[] bytes = Encoding.UTF8.GetBytes(cadena);
             return bytes;
         }
+
     }
 }

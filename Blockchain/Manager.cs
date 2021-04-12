@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 namespace Blockchain
 {
     
-    class Manager
+    public class Manager
     {
         
         public List<Bloque> BlockChain { get; set; }
@@ -37,25 +37,23 @@ namespace Blockchain
             {
                 
                 Bloque genesis = new Bloque(geti(), pnom, pmot, pfhash, "0", "000000");
-                byte[] genbyte = genesis.ToByteArray();
-                string genhash = SHA256maker(genbyte);
-                genesis.ModHash(genhash);
+                genesis.ModHash(Hash256(genesis));
                 BlockChain.Add(genesis);
                 incrementar_i();
             } else
             {
                 string prehash = BlockChain.ElementAt(geti()-1).GetHash();
                 Bloque block = new Bloque(geti(), pnom, pmot, pfhash, "0", prehash);
-                byte[] blockbyte = block.ToByteArray();
-                string blockhash = SHA256maker(blockbyte);
-                block.ModHash(blockhash);
                 BlockChain.Add(block);
                 incrementar_i();
             }
             
         }
-
-        static string SHA256maker(byte[] cryptobyte)
+        public string Hash256(Bloque pblock)
+        {
+            return HashByteToString(pblock.ToByteArray());
+        }
+        public static string HashByteToString(byte[] cryptobyte)
         {
             var crypt = new SHA256Managed();
             var hash = new StringBuilder();
@@ -66,5 +64,10 @@ namespace Blockchain
             }
             return hash.ToString();
         }
+        public static void Main()
+        {
+            Console.WriteLine("Hola Mundo!");
+        }
+
     }
 }
