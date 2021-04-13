@@ -9,41 +9,58 @@ namespace Blockchain
     
     public class Manager
     {
-        
+        private static Manager instance = null;
+        public string mensaje = "";
+        protected Manager()
+        {
+            BlockChain = new List<Bloque>();
+            this.i = 0;
+            AgregarBloque("a", "b", "c");
+        }
+
+        public static Manager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Manager();
+                }
+
+                return instance;
+            }
+        }
         public List<Bloque> BlockChain { get; set; }
         public int i = 0;
-        public string prehash;
-        public int geti()
+        public int GetI()
         {
             return this.i;
         }
-        private void seti(int p_i)
+        private void Seti(int p_i)
         {
             this.i = p_i;
         }
-        private void incrementar_i()
+        public void Incrementar_i()
         {
-            this.seti(this.geti() + 1);
+            this.Seti(this.GetI() + 1);
         }
-        public Manager()
+        
+        public void AgregarBloque(string pnom, string pmot, string pfhash)
         {
-            BlockChain = new List<Bloque>();
-        }
-        public void CrearBlockchain(string pnom, string pmot, string pfhash)
-        {
-            if (geti() == 0)
+            if (GetI() == 0)
             {
                 
-                Bloque genesis = new Bloque(geti(), pnom, pmot, pfhash, "0", "000000");
+                Bloque genesis = new Bloque(GetI(), pnom, pmot, pfhash, "00000", "0");
                 genesis.ModHash(Hash256(genesis));
                 BlockChain.Add(genesis);
-                incrementar_i();
+                Incrementar_i();
             } else
             {
-                string prehash = BlockChain.ElementAt(geti()-1).GetHash();
-                Bloque block = new Bloque(geti(), pnom, pmot, pfhash, "0", prehash);
+                string prehash = GetBloqueIndice(GetI() - 1).GetHash();
+                Bloque block = new Bloque(GetI(), pnom, pmot, pfhash, prehash, "0");
+                block.ModHash(Hash256(block));
                 BlockChain.Add(block);
-                incrementar_i();
+                Incrementar_i();
             }
             
         }
@@ -51,7 +68,7 @@ namespace Blockchain
         {
             return HashByteToString(pblock.ToByteArray());
         }
-        public static string HashByteToString(byte[] cryptobyte)
+        public string HashByteToString(byte[] cryptobyte)
         {
             var crypt = new SHA256Managed();
             var hash = new StringBuilder();
@@ -62,10 +79,10 @@ namespace Blockchain
             }
             return hash.ToString();
         }
-        public static void Main()
+        public Bloque GetBloqueIndice(int p_ind)
         {
-            Console.WriteLine("Hola Mundo!");
+            return BlockChain.ElementAt(p_ind);
         }
-
+       
     }
 }

@@ -4,14 +4,44 @@ namespace Blockchain
 {
     public class Bloque
     {
-        public long Indice { get; set; }
-        public String Nombre { get; set; }
-        public String Motivo { get; set; }
-        public String FileHash { get; set; }
-        public String Hash;
-        public String PrevHash { get; set; }
-        public DateTime Fecha { get; set; }
+        public long Indice;
+        public long GetIndice()
+        {
+            return this.Indice;
+        }
+        private void SetIndice(long indi)
+        {
+            this.Indice = indi;
+        }
 
+        public string Nombre;
+        public string GetNombre()
+        {
+            return this.Nombre;
+        }
+        private void SetNombre(string nom)
+        {
+            this.Nombre = nom;
+        }
+        public string Motivo;
+        public string GetMotivo()
+        {
+            return this.Motivo;
+        }
+        private void SetMotivo(string mot)
+        {
+            this.Motivo = mot;
+        }
+        public string FileHash;
+        public string GetFileHash()
+        {
+            return this.FileHash;
+        }
+        private void SetFileHash(string fhash)
+        {
+            this.FileHash = fhash;
+        }
+        public string Hash;
         private void SetHash(string phash)
         {
             this.Hash = phash;
@@ -24,17 +54,29 @@ namespace Blockchain
         {
             this.SetHash(phash);
         }
+        public string PrevHash;
+        public string GetPrevHash()
+        {
+            return this.PrevHash;
+        }
+        private void SetPrevHash(string prehash)
+        {
+            this.PrevHash = prehash;
+        }
+        public DateTime Fecha { get; set; }
+
+        
         public Bloque() {
         }
         public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, string phash)
         {
             this.Fecha = DateTime.Now;
-            this.Indice = pindi;
-            this.Nombre = pnom;
-            this.Motivo = pmot;
-            this.FileHash = pfhash;
-            this.PrevHash = pprehash;
-            this.Hash = phash;
+            SetIndice(pindi);
+            SetNombre(pnom);
+            SetMotivo(pmot);
+            SetFileHash(pfhash);
+            SetPrevHash(pprehash);
+            SetHash(phash);
         }
 
         public override string ToString()
