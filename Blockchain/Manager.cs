@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Blockchain
 {
-    
     public class Manager
     {
         private static Manager instance = null;
@@ -44,17 +43,18 @@ namespace Blockchain
         {
             this.Seti(this.GetI() + 1);
         }
-        
+
         public void AgregarBloque(string pnom, string pmot, string pfhash)
         {
             if (GetI() == 0)
             {
-                
+
                 Bloque genesis = new Bloque(GetI(), pnom, pmot, pfhash, "00000", "0");
                 genesis.ModHash(Hash256(genesis));
                 BlockChain.Add(genesis);
                 Incrementar_i();
-            } else
+            }
+            else
             {
                 string prehash = GetBloqueIndice(GetI() - 1).GetHash();
                 Bloque block = new Bloque(GetI(), pnom, pmot, pfhash, prehash, "0");
@@ -62,7 +62,7 @@ namespace Blockchain
                 BlockChain.Add(block);
                 Incrementar_i();
             }
-            
+
         }
         public string Hash256(Bloque pblock)
         {
@@ -83,6 +83,6 @@ namespace Blockchain
         {
             return BlockChain.ElementAt(p_ind);
         }
-       
+
     }
 }

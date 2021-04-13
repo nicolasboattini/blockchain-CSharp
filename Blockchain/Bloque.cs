@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 namespace Blockchain
 {
     public class Bloque
@@ -65,8 +66,9 @@ namespace Blockchain
         }
         public DateTime Fecha { get; set; }
 
-        
-        public Bloque() {
+
+        public Bloque()
+        {
         }
         public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, string phash)
         {
@@ -80,7 +82,7 @@ namespace Blockchain
         }
 
         public override string ToString()
-        {   
+        {
             return string.Concat(Indice, Nombre, Motivo, FileHash, PrevHash, Fecha.ToString());
         }
 
