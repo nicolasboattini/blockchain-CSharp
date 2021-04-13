@@ -96,10 +96,8 @@ namespace Blockchain.Tests
             Manager a = Manager.Instance;
             a.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
             a.AgregarBloque("jose", "vacaciones", "solicitud.doc");
-            a.AgregarBloque("arturo", "licencia", "licencia.pdf");
             Bloque b1 = a.GetBloqueIndice(1);
             Bloque b2 = a.GetBloqueIndice(2);
-            Bloque b3 = a.GetBloqueIndice(3);
             Assert.AreEqual(b1, a.GetBloquePorHash(b1.GetHash()));
             Assert.AreEqual(b2, a.GetBloquePorHash(a.Hash256(b2)));
         }
