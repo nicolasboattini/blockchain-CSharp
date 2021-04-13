@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Blockchain;
 
-namespace TestBlockchain
+namespace Blockchain.Tests
 {
     [TestClass]
     public class TestBloque
