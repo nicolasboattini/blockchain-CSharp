@@ -19,8 +19,8 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestDeHash_CompararHashes2()
         {
-            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
-            Bloque b = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            Bloque a = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            Bloque b = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
             Manager c = Manager.Instance;
             string ha = c.Hash256(a);
             string hb = c.Hash256(b);
@@ -76,6 +76,32 @@ namespace Blockchain.Tests
             m1.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
             
             Assert.AreEqual(m1.GetBloqueIndice(1).GetHash(), m2.GetBloqueIndice(1).GetHash());
+        }
+        [TestMethod]
+        public void TestBloqueGenesis()
+        {
+            Manager m = Manager.Instance;
+            Bloque gen = m.GetBloqueIndice(0);
+            Assert.AreEqual(0, gen.GetIndice());
+            Assert.AreEqual("00000", gen.GetNombre());
+            Assert.AreEqual("00000", gen.GetMotivo());
+            Assert.AreEqual("00000", gen.GetFileHash());
+            Assert.AreEqual("00000", gen.GetPrevHash());
+            string hash = m.Hash256(gen);
+            Assert.AreEqual(hash, gen.GetHash());
+        }
+        [TestMethod]
+        public void TestDeBusquedaPorHash()
+        {
+            Manager a = Manager.Instance;
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
+            a.AgregarBloque("jose", "vacaciones", "solicitud.doc");
+            a.AgregarBloque("arturo", "licencia", "licencia.pdf");
+            Bloque b1 = a.GetBloqueIndice(1);
+            Bloque b2 = a.GetBloqueIndice(2);
+            Bloque b3 = a.GetBloqueIndice(3);
+            Assert.AreEqual(b1, a.GetBloquePorHash(b1.GetHash()));
+            Assert.AreEqual(b2, a.GetBloquePorHash(a.Hash256(b2)));
         }
     }
 }

@@ -8,13 +8,16 @@ namespace Blockchain
 {
     public class Manager
     {
+        public List<Bloque> BlockChain { get; set; }
+        public int i;
         private static Manager instance = null;
-        public string mensaje = "";
         protected Manager()
         {
             BlockChain = new List<Bloque>();
-            this.i = 0;
-            AgregarBloque("a", "b", "c");
+            this.i = 1;
+            Bloque gen = new Bloque(0, "00000", "00000", "00000", "00000", "hash");
+            gen.ModHash(Hash256(gen));
+            BlockChain.Add(gen);
         }
 
         public static Manager Instance
@@ -29,8 +32,7 @@ namespace Blockchain
                 return instance;
             }
         }
-        public List<Bloque> BlockChain { get; set; }
-        public int i = 0;
+        
         public int GetI()
         {
             return this.i;
@@ -46,23 +48,11 @@ namespace Blockchain
 
         public void AgregarBloque(string pnom, string pmot, string pfhash)
         {
-            if (GetI() == 0)
-            {
-
-                Bloque genesis = new Bloque(GetI(), pnom, pmot, pfhash, "00000", "0");
-                genesis.ModHash(Hash256(genesis));
-                BlockChain.Add(genesis);
-                Incrementar_i();
-            }
-            else
-            {
                 string prehash = GetBloqueIndice(GetI() - 1).GetHash();
                 Bloque block = new Bloque(GetI(), pnom, pmot, pfhash, prehash, "0");
                 block.ModHash(Hash256(block));
                 BlockChain.Add(block);
                 Incrementar_i();
-            }
-
         }
         public string Hash256(Bloque pblock)
         {
@@ -82,6 +72,17 @@ namespace Blockchain
         public Bloque GetBloqueIndice(int p_ind)
         {
             return BlockChain.ElementAt(p_ind);
+        }
+        public Bloque GetBloquePorHash(string p_hash)
+        {
+            for (int i=1; i<GetI(); i++)
+            {
+                if (GetBloqueIndice(i).GetHash() == p_hash)
+                {
+                    return GetBloqueIndice(i);
+                }
+            }
+            return null;
         }
 
     }
