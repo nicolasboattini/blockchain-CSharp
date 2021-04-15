@@ -16,8 +16,8 @@ namespace Blockchain.Tests
             Manager c = Manager.Instance;
             string ha = c.HashCondicional(a);
             string hb = c.HashCondicional(b);
-            Assert.AreEqual("0806ab65dd0f8b109087464965b7c929bb954bb3450987005fdca46077a3cbd4", hb);
-            Assert.AreEqual("0806ab65dd0f8b109087464965b7c929bb954bb3450987005fdca46077a3cbd4", ha);
+            Assert.AreEqual("005c897d17fb2fd2feaed4db448862ee63fc2ce2d896fb72f13c3ec095aac5b3", hb);
+            Assert.AreEqual("005c897d17fb2fd2feaed4db448862ee63fc2ce2d896fb72f13c3ec095aac5b3", ha);
         }
         [TestMethod]
         public void TestDeHash_CompararHashes2()
@@ -51,21 +51,27 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestDeHash_VerificarHashAnterior()
         {
-            Manager a = Manager.Instance;
-            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
-            a.AgregarBloque("jose", "vacaciones", "solicitud.doc");
-            a.AgregarBloque("arturo", "licencia", "licencia.pdf");
+            Manager a = Manager.InstanceTest;
+            DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            a.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
+            a.AgregarBloque("arturo", "licencia", "licencia.pdf", pfech);
             Bloque b1 = a.GetBloqueIndice(1);
             Bloque b2 = a.GetBloqueIndice(2);
             Bloque b3 = a.GetBloqueIndice(3);
-            Assert.AreEqual(b1.GetHash(), b2.GetPrevHash());
-            Assert.AreEqual(b2.GetHash(), b3.GetPrevHash());
+            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", a.GetBloqueIndice(0).GetHash());
+            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", b1.GetPrevHash());
+            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
+            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b2.GetPrevHash());
+            Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b2.GetHash());
+            Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b3.GetPrevHash());
         }
         [TestMethod]
         public void TestBloqueToArray()
         {
-            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc");
-            string esp = string.Concat(a.GetNonce(), "0Adrianenfermedad123abcpre123abc", a.GetFecha().ToString());
+            DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
+            string esp = string.Concat("10Adrianenfermedad123abcpre123abc6/7/2001 12:30:00 PM");
             Assert.AreEqual(esp, a.ToString());
         }
         [TestMethod]
@@ -87,26 +93,63 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestBloqueGenesis()
         {
-            Manager m = Manager.Instance;
+            Manager m = Manager.InstanceTest;
             Bloque gen = m.GetBloqueIndice(0);
             Assert.AreEqual(0, gen.GetIndice());
             Assert.AreEqual("00000", gen.GetNombre());
             Assert.AreEqual("00000", gen.GetMotivo());
             Assert.AreEqual("00000", gen.GetFileHash());
             Assert.AreEqual("00000", gen.GetPrevHash());
-            string hash = m.Hash256(gen);
-            Assert.AreEqual(hash, gen.GetHash());
+            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", gen.GetHash());
         }
         [TestMethod]
         public void TestDeBusquedaPorHash()
         {
-            Manager a = Manager.Instance;
-            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
-            a.AgregarBloque("jose", "vacaciones", "solicitud.doc");
+            Manager a = Manager.InstanceTest;
+            DateTime pfech = new DateTime(2001, 6, 6, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            a.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
             Bloque b1 = a.GetBloqueIndice(1);
             Bloque b2 = a.GetBloqueIndice(2);
-            Assert.AreEqual(b1, a.GetBloquePorHash(b1.GetHash()));
-            Assert.AreEqual(b2, a.GetBloquePorHash(a.Hash256(b2)));
+            Assert.AreEqual(b1, a.GetBloquePorHash("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357"));
+            Assert.AreEqual(b2, a.GetBloquePorHash("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb"));
+        }
+        [TestMethod]
+        public void TestDeBloque()
+        {
+            Manager a = Manager.InstanceTest;
+            ulong p = 42;
+            DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            Bloque b1 = a.GetBloqueIndice(1);
+            Assert.AreEqual("6/7/2001 12:30:00 PM", b1.GetFecha().ToString());
+            Assert.AreEqual("certmed.pdf", b1.GetFileHash());
+            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
+            Assert.AreEqual(1, b1.GetIndice());
+            Assert.AreEqual("enfermedad", b1.GetMotivo());
+            Assert.AreEqual("manuel", b1.GetNombre());
+            Assert.AreEqual(p, b1.GetNonce());
+            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", b1.GetPrevHash());
+        }
+        [TestMethod]
+        public void TestDiaParImpar()
+        {
+            Manager a = Manager.InstanceTest;
+            DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf", fechapar);
+            a.AgregarBloque("jose", "vacaciones", "solicitud.doc", fechaimpar);
+            Bloque bloquepar = a.GetBloqueIndice(1);
+            Bloque bloqueimpar = a.GetBloqueIndice(2);
+            Assert.AreEqual("manuel", bloquepar.GetNombre());
+            Assert.AreEqual("0058afa3c18681cbe59f401f3f54f15fa69a3af2ee90870b0341cd905698f1e6", bloquepar.GetHash());
+            Assert.AreEqual(bloquepar.GetHash()[0], '0');
+            Assert.AreEqual(bloquepar.GetHash()[1], '0');
+            Assert.AreEqual("jose", bloqueimpar.GetNombre());
+            Assert.AreEqual("0ec995a4321b71254e92651ebeeaa1b2020df695b058480d8dfe1a2da0d444e3", bloqueimpar.GetHash());
+            Assert.AreEqual(bloqueimpar.GetHash()[0], '0');
+                
+            
         }
     }
 }

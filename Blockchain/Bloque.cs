@@ -14,9 +14,9 @@ namespace Blockchain
         {
             this.Nonce = pnonce;
         }
-        public void ModNonce(ulong ponce)
+        public void IncNonce()
         {
-            this.SetNonce(ponce);
+            this.SetNonce(((GetNonce()) + 1));
         }
         public long Indice;
         public long GetIndice()

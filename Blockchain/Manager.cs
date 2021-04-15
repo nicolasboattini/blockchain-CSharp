@@ -19,6 +19,14 @@ namespace Blockchain
             gen.ModHash(Hash256(gen));
             BlockChain.Add(gen);
         }
+        protected Manager(DateTime fechatest)
+        {
+            BlockChain = new List<Bloque>();
+            this.i = 1;
+            Bloque gen = new Bloque(0, "00000", "00000", "00000", "00000", fechatest);
+            gen.ModHash(Hash256(gen));
+            BlockChain.Add(gen);
+        }
 
         public static Manager Instance
         {
@@ -32,7 +40,20 @@ namespace Blockchain
                 return instance;
             }
         }
-        
+        public static Manager InstanceTest
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    DateTime pfech = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+                    instance = new Manager(pfech);
+                }
+
+                return instance;
+            }
+        }
+
         public int GetI()
         {
             return this.i;
@@ -59,29 +80,27 @@ namespace Blockchain
         {
             string prehash = GetBloqueIndice(GetI() - 1).GetHash();
             Bloque block = new Bloque(GetI(), pnom, pmot, pfhash, prehash, pfech);
-            block.ModHash(HashCondicional(block));
+            string nhash = HashCondicional(block);
+            block.ModHash(nhash);
             BlockChain.Add(block);
             Incrementar_i();
         }
         public string HashCondicional(Bloque block)
         {
-            string phash = Hash256(block);
+            string phash = Hash256(block);            
             if (block.GetFecha().Day % 2 == 0)
             {
-                /*for (block.GetNonce(); block.GetNonce()<=ulong.MaxValue; block.ModNonce(block.ModNonce(1)){
-
-                }*/
-                while ((char) phash[0] != (char)'0' && (char)phash[1] != (char)'0')
+                while (phash[0] != '0' | phash[1] != '0')
                 {
-                    block.ModNonce(block.GetNonce() + (ulong) 1);
-                    phash = Hash256(block);
+                    block.IncNonce(); 
+                    phash = Hash256(block);                    
                 }
                 return phash;
             } else
             {
-                while ((char)phash[0] != (char)'0')
+                while (phash[0] != '0')
                 {
-                    block.ModNonce(block.GetNonce() + (ulong) 1);
+                    block.IncNonce();
                     phash = Hash256(block);
                 }
                 return phash;
