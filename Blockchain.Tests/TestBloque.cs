@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Blockchain;
+using System;
 
 namespace Blockchain.Tests
 {
@@ -9,18 +10,20 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestDeHash_CompararHashes()
         {
-            Bloque a = new Bloque(100, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
-            Bloque b = new Bloque(100, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            DateTime pfech = new DateTime(2001, 06, 06, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            Bloque a = new Bloque(10, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
+            Bloque b = new Bloque(10, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             Manager c = Manager.Instance;
-            string ha = c.Hash256(a);
-            string hb = c.Hash256(b);
-            Assert.AreEqual(ha, hb);
+            string ha = c.HashCondicional(a);
+            string hb = c.HashCondicional(b);
+            Assert.AreEqual("0806ab65dd0f8b109087464965b7c929bb954bb3450987005fdca46077a3cbd4", hb);
+            Assert.AreEqual("0806ab65dd0f8b109087464965b7c929bb954bb3450987005fdca46077a3cbd4", ha);
         }
         [TestMethod]
         public void TestDeHash_CompararHashes2()
         {
-            Bloque a = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
-            Bloque b = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
+            Bloque a = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc");
+            Bloque b = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc");
             Manager c = Manager.Instance;
             string ha = c.Hash256(a);
             string hb = c.Hash256(b);
@@ -29,17 +32,21 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestDeBlockchain_TraeBloquePorIndice()
         {
+            DateTime pfech = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
             Manager a = Manager.Instance;
-            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf");
-            a.AgregarBloque("jose", "vacaciones", "solicitud.doc");
-            a.AgregarBloque("arturo", "licencia", "licencia.pdf");
-            a.AgregarBloque("arturo", "vacaciones", "boletos.pdf");
+            a.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            a.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
+            a.AgregarBloque("arturo", "licencia", "licencia.pdf", pfech);
+            a.AgregarBloque("arturo", "vacaciones", "boletos.pdf", pfech);
             Bloque block = a.GetBloqueIndice(3);
+            Bloque pre = a.GetBloqueIndice(2);
             Assert.AreEqual("arturo", block.GetNombre());
             Assert.AreEqual("licencia", block.GetMotivo());
             Assert.AreEqual("licencia.pdf", block.GetFileHash());
             Assert.AreEqual(3, (int) block.GetIndice());
-            Assert.AreEqual(a.Hash256(block), block.GetHash());
+            Assert.AreEqual(pre.GetHash(), block.GetPrevHash());
+            
+
         }
         [TestMethod]
         public void TestDeHash_VerificarHashAnterior()
@@ -57,8 +64,8 @@ namespace Blockchain.Tests
         [TestMethod]
         public void TestBloqueToArray()
         {
-            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", "0000");
-            string esp = string.Concat("0Adrianenfermedad123abcpre123abc", a.Fecha.ToString());
+            Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc");
+            string esp = string.Concat(a.GetNonce(), "0Adrianenfermedad123abcpre123abc", a.GetFecha().ToString());
             Assert.AreEqual(esp, a.ToString());
         }
         [TestMethod]

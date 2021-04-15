@@ -5,6 +5,19 @@ namespace Blockchain
 {
     public class Bloque
     {
+        public ulong Nonce;
+        public ulong GetNonce()
+        {
+            return this.Nonce;
+        }
+        private void SetNonce(ulong pnonce)
+        {
+            this.Nonce = pnonce;
+        }
+        public void ModNonce(ulong ponce)
+        {
+            this.SetNonce(ponce);
+        }
         public long Indice;
         public long GetIndice()
         {
@@ -64,26 +77,46 @@ namespace Blockchain
         {
             this.PrevHash = prehash;
         }
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha;
+        public DateTime GetFecha()
+        {
+            return this.Fecha;
+        }
+        private void SetFecha(DateTime pfech)
+        {
+            this.Fecha = pfech;
+        }
 
 
         public Bloque()
         {
         }
-        public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, string phash)
+        public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash)
         {
-            this.Fecha = DateTime.Now;
+            SetNonce(1);
+            SetFecha(DateTime.Now);
             SetIndice(pindi);
             SetNombre(pnom);
             SetMotivo(pmot);
             SetFileHash(pfhash);
             SetPrevHash(pprehash);
-            SetHash(phash);
+            SetHash("0");
+        }
+        public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, DateTime pfech)
+        {
+            SetNonce(1);
+            SetFecha(pfech);
+            SetIndice(pindi);
+            SetNombre(pnom);
+            SetMotivo(pmot);
+            SetFileHash(pfhash);
+            SetPrevHash(pprehash);
+            SetHash("0");
         }
 
         public override string ToString()
         {
-            return string.Concat(Indice, Nombre, Motivo, FileHash, PrevHash, Fecha.ToString());
+            return string.Concat(Nonce, Indice, Nombre, Motivo, FileHash, PrevHash, Fecha.ToString());
         }
 
         public byte[] ToByteArray()
