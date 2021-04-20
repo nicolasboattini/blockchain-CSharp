@@ -19,8 +19,8 @@ namespace Blockchain.Tests
             Bloque b = new Bloque(10, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             string ha = man.HashCondicional(a);
             string hb = man.HashCondicional(b);
-            Assert.AreEqual("005c897d17fb2fd2feaed4db448862ee63fc2ce2d896fb72f13c3ec095aac5b3", hb);
-            Assert.AreEqual("005c897d17fb2fd2feaed4db448862ee63fc2ce2d896fb72f13c3ec095aac5b3", ha);
+            Assert.AreEqual("00ca561f700c5db3305f74ca35d334cd8bed90f5a30b9901f3bbebfbbf10e651", hb);
+            Assert.AreEqual("00ca561f700c5db3305f74ca35d334cd8bed90f5a30b9901f3bbebfbbf10e651", ha);
         }
         [TestMethod]
         public void TestDeHash_CompararHashes2()
@@ -69,8 +69,8 @@ namespace Blockchain.Tests
             Bloque b1 = man.GetBloqueIndice(1);
             Bloque b2 = man.GetBloqueIndice(2);
             Bloque b3 = man.GetBloqueIndice(3);
-            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", man.GetBloqueIndice(0).GetHash());
-            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", b1.GetPrevHash());
+            Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", man.GetBloqueIndice(0).GetHash());
+            Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", b1.GetPrevHash());
             Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
             Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b2.GetPrevHash());
             Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b2.GetHash());
@@ -84,7 +84,7 @@ namespace Blockchain.Tests
             man.Inicializar(now);
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
-            string esp = string.Concat("10Adrianenfermedad123abcpre123abc6/7/2001 12:30:00 PM");
+            string esp = string.Concat("10Adrianenfermedad123abcpre123abc06/07/2001 12:30:00");
             Assert.AreEqual(esp, a.ToString());
         }
         [TestMethod]
@@ -121,7 +121,7 @@ namespace Blockchain.Tests
             Assert.AreEqual("00000", gen.GetMotivo());
             Assert.AreEqual("00000", gen.GetFileHash());
             Assert.AreEqual("00000", gen.GetPrevHash());
-            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", gen.GetHash());
+            Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", gen.GetHash());
         }
         [TestMethod]
         public void TestDeBusquedaPorHash()
@@ -134,6 +134,8 @@ namespace Blockchain.Tests
             man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
             Bloque b1 = man.GetBloqueIndice(1);
             Bloque b2 = man.GetBloqueIndice(2);
+            Assert.AreEqual("abc", b1.GetHash());
+            Assert.AreEqual("abc", b2.GetHash());
             Assert.AreEqual(b1, man.GetBloquePorHash("0758d34f16f9de02de5933e3e0fb6d5fcc727b2d69fd8255a2d4ae9ce329dac6"));
             Assert.AreEqual(b2, man.GetBloquePorHash("05bd8185190ee6bd294fd3993825b6d2e4fe851a1164291e9ecb55b852bbbcf6"));
         }
@@ -147,7 +149,7 @@ namespace Blockchain.Tests
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
             Bloque b1 = man.GetBloqueIndice(1);
-            Assert.AreEqual("6/7/2001 12:30:00 PM", b1.GetFecha().ToString());
+            Assert.AreEqual("06/07/2001 12:30:00 PM", b1.GetFecha().ToString());
             Assert.AreEqual("certmed.pdf", b1.GetFileHash());
             Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
             Assert.AreEqual(1, b1.GetIndice());
@@ -192,7 +194,7 @@ namespace Blockchain.Tests
                 }
             }
             Bloque b50 = man.GetBloqueIndice(50);
-            Assert.AreEqual("6/12/2001 12:30:00 PM", b50.GetFecha().ToString());
+            Assert.AreEqual("06/12/2001 12:30:00 PM", b50.GetFecha().ToString());
             Assert.AreEqual("motivo.doc", b50.GetFileHash());
             Assert.AreEqual("00a57c6f990750962dad825676f4f0ac7ffc66365c4decacf68d42f03c304baf", b50.GetHash());
             Assert.AreEqual(50, b50.GetIndice());
