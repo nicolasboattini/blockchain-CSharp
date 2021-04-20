@@ -176,7 +176,7 @@ namespace Blockchain.Tests
         public void CadenaCheck()
         {
             Manager man = Manager.Instance;
-            ulong p = 58;
+            ulong p = 580;
             DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
