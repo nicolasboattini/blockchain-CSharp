@@ -199,8 +199,8 @@ namespace Blockchain.Tests
             Assert.AreEqual("motivo", b50.GetMotivo());
             Assert.AreEqual("bloque50@gmail.com", b50.GetNombre());
             Assert.AreEqual(p, b50.GetNonce());
-            Assert.AreEqual("0cf51538490e85eb2bcbe99886ddd33c504e341a1d342944a1d72ffe9147a31b", b50.GetPrevHash());
-            Assert.AreEqual(man.GetBloqueIndice(49), man.GetBloquePorHash("0cf51538490e85eb2bcbe99886ddd33c504e341a1d342944a1d72ffe9147a31b"));
+            Assert.AreEqual("005821a973b2cd69d8479fa52f3e42b8d8ff5c19359ab69c774cd470fee4355b", b50.GetPrevHash());
+            Assert.AreEqual(man.GetBloqueIndice(49), man.GetBloquePorHash("005821a973b2cd69d8479fa52f3e42b8d8ff5c19359ab69c774cd470fee4355b"));
             Assert.AreEqual("bloque100@gmail.com", man.GetBloqueIndice(100).GetNombre());
 
 
