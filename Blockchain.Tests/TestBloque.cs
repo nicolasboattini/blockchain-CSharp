@@ -71,8 +71,8 @@ namespace Blockchain.Tests
             Bloque b3 = man.GetBloqueIndice(3);
             Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", man.GetBloqueIndice(0).GetHash());
             Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", b1.GetPrevHash());
-            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
-            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b2.GetPrevHash());
+            Assert.AreEqual("0760bd9bdbcdfa3310a71cd9b47e90ced866695e77054700d93c8d8b2365f8d6", b1.GetHash());
+            Assert.AreEqual("0760bd9bdbcdfa3310a71cd9b47e90ced866695e77054700d93c8d8b2365f8d6", b2.GetPrevHash());
             Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b2.GetHash());
             Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b3.GetPrevHash());
         }
@@ -136,7 +136,7 @@ namespace Blockchain.Tests
             Bloque b2 = man.GetBloqueIndice(2);
             Assert.AreEqual("abc", b1.GetHash());
             Assert.AreEqual("abc", b2.GetHash());
-            Assert.AreEqual(b1, man.GetBloquePorHash("0758d34f16f9de02de5933e3e0fb6d5fcc727b2d69fd8255a2d4ae9ce329dac6"));
+            Assert.AreEqual(b1, man.GetBloquePorHash("0abf21bfdad9fb66a86645091a96380331ecfdc1f5cd8b1b8ed102c4bed206c9"));
             Assert.AreEqual(b2, man.GetBloquePorHash("05bd8185190ee6bd294fd3993825b6d2e4fe851a1164291e9ecb55b852bbbcf6"));
         }
         [TestMethod]
@@ -149,7 +149,7 @@ namespace Blockchain.Tests
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
             Bloque b1 = man.GetBloqueIndice(1);
-            Assert.AreEqual("06/07/2001 12:30:00 PM", b1.GetFecha().ToString());
+            Assert.AreEqual("06/07/2001 12:30:00", b1.GetFecha().ToString());
             Assert.AreEqual("certmed.pdf", b1.GetFileHash());
             Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
             Assert.AreEqual(1, b1.GetIndice());
