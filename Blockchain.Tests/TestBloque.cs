@@ -154,7 +154,7 @@ namespace Blockchain.Tests
             Assert.AreEqual("enfermedad", b1.GetMotivo());
             Assert.AreEqual("manuel", b1.GetNombre());
             Assert.AreEqual(p, b1.GetNonce());
-            Assert.AreEqual("fc5ab006e039fa9c10fae52c08d2eba8b52a04b27548b36612586c9c442d4b89", b1.GetPrevHash());
+            Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", b1.GetPrevHash());
         }
         [TestMethod]
         public void TestDiaParImpar()
@@ -194,7 +194,7 @@ namespace Blockchain.Tests
             Bloque b50 = man.GetBloqueIndice(50);
             Assert.AreEqual("06/12/2001 12:30:00", b50.GetFecha().ToString());
             Assert.AreEqual("motivo.doc", b50.GetFileHash());
-            Assert.AreEqual("00a57c6f990750962dad825676f4f0ac7ffc66365c4decacf68d42f03c304baf", b50.GetHash());
+            Assert.AreEqual("0077605924c879169947eb3128a91e1db92f73a96641a664728a47a0fabc3d23", b50.GetHash());
             Assert.AreEqual(50, b50.GetIndice());
             Assert.AreEqual("motivo", b50.GetMotivo());
             Assert.AreEqual("bloque50@gmail.com", b50.GetNombre());
