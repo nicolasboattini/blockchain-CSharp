@@ -91,17 +91,7 @@ namespace Blockchain
         public Bloque()
         {
         }
-        public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash)
-        {
-            SetNonce(1);
-            SetFecha(DateTime.Now);
-            SetIndice(pindi);
-            SetNombre(pnom);
-            SetMotivo(pmot);
-            SetFileHash(pfhash);
-            SetPrevHash(pprehash);
-            SetHash("0");
-        }
+        
         public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, DateTime pfech)
         {
             SetNonce(1);

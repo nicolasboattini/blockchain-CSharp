@@ -11,21 +11,10 @@ namespace Blockchain
         public List<Bloque> BlockChain { get; set; }
         public int i;
         private static Manager instance = null;
-        protected Manager()
-        {
-            BlockChain = new List<Bloque>();
-            this.i = 1;
-            Bloque gen = new Bloque(0, "00000", "00000", "00000", "00000");
-            gen.ModHash(Hash256(gen));
-            BlockChain.Add(gen);
-        }
+        
         protected Manager(DateTime fechatest)
         {
-            BlockChain = new List<Bloque>();
-            this.i = 1;
-            Bloque gen = new Bloque(0, "00000", "00000", "00000", "00000", fechatest);
-            gen.ModHash(Hash256(gen));
-            BlockChain.Add(gen);
+            Inicializar(fechatest);
         }
 
         public static Manager Instance
@@ -34,26 +23,13 @@ namespace Blockchain
             {
                 if (instance == null)
                 {
-                    instance = new Manager();
+                    instance = new Manager(DateTime.Now);
                 }
 
                 return instance;
             }
         }
-        public static Manager InstanceTest
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    DateTime pfech = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
-                    instance = new Manager(pfech);
-                }
-
-                return instance;
-            }
-        }
-
+        
         public int GetI()
         {
             return this.i;
@@ -66,15 +42,19 @@ namespace Blockchain
         {
             this.Seti(this.GetI() + 1);
         }
+        public void Inicializar(DateTime fechatest)
+        {
+            BlockChain = new List<Bloque>();
+            this.i = 1;
+            Bloque gen = new Bloque(0, "00000", "00000", "00000", "00000", fechatest);
+            gen.ModHash(Hash256(gen));
+            BlockChain.Add(gen);
+        }
 
         public void AgregarBloque(string pnom, string pmot, string pfhash)
         {
-                string prehash = GetBloqueIndice(GetI() - 1).GetHash();
-                Bloque block = new Bloque(GetI(), pnom, pmot, pfhash, prehash);
-                string nhash = HashCondicional(block);
-                block.ModHash(nhash);
-                BlockChain.Add(block);
-                Incrementar_i();
+            AgregarBloque(pnom, pmot, pfhash, DateTime.Now);
+
         }
         public void AgregarBloque(string pnom, string pmot, string pfhash, DateTime pfech)
         {
