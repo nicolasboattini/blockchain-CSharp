@@ -12,9 +12,9 @@ namespace Blockchain.Tests
         public void TestDeHash_CompararHashes()
         {
             Manager man = Manager.Instance;
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
-            DateTime pfech = new DateTime(2001, 06, 06, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime pfech = new DateTime(2001, 6, 6, 12, 30, 00, 00, System.DateTimeKind.Utc);
             Bloque a = new Bloque(10, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             Bloque b = new Bloque(10, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             string ha = man.HashCondicional(a);
@@ -26,9 +26,9 @@ namespace Blockchain.Tests
         public void TestDeHash_CompararHashes2()
         {
             Manager man = Manager.Instance;
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
-            DateTime pfech = new DateTime(2001, 06, 06, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime pfech = new DateTime(2001, 6, 6, 12, 30, 00, 00, System.DateTimeKind.Utc);
             Bloque a = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             Bloque b = new Bloque(1, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
             string ha = man.Hash256(a);
@@ -39,8 +39,8 @@ namespace Blockchain.Tests
         public void TestDeBlockchain_TraeBloquePorIndice()
         {
             Manager man = Manager.Instance;
-            DateTime pfech = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
             man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
@@ -60,7 +60,7 @@ namespace Blockchain.Tests
         public void TestDeHash_VerificarHashAnterior()
         {
             Manager man = Manager.Instance;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
@@ -80,7 +80,7 @@ namespace Blockchain.Tests
         public void TestBloqueToArray()
         {
             Manager man = Manager.Instance;
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             Bloque a = new Bloque(0, "Adrian", "enfermedad", "123abc", "pre123abc", pfech);
@@ -91,7 +91,7 @@ namespace Blockchain.Tests
         public void TestSingleton()
         {
             Manager man = Manager.Instance;
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
             Manager m1 = Manager.Instance;
             Manager m2 = Manager.Instance;
@@ -101,7 +101,7 @@ namespace Blockchain.Tests
         public void TestSingleton2()
         {
             Manager man = Manager.Instance;
-            DateTime now = new DateTime(2021, 04, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime now = new DateTime(2021, 4, 20, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(now);
             Manager m1 = Manager.Instance;
             Manager m2 = Manager.Instance;
@@ -113,7 +113,7 @@ namespace Blockchain.Tests
         public void TestBloqueGenesis()
         {
             Manager man = Manager.Instance;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             Bloque gen = man.GetBloqueIndice(0);
             Assert.AreEqual(0, gen.GetIndice());
@@ -127,7 +127,7 @@ namespace Blockchain.Tests
         public void TestDeBusquedaPorHash()
         {
             Manager man = Manager.Instance;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             DateTime pfech = new DateTime(2001, 6, 15, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
@@ -141,7 +141,7 @@ namespace Blockchain.Tests
         public void TestDeBloque()
         {
             Manager man = Manager.Instance;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             ulong p = 42;
             DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
@@ -160,7 +160,7 @@ namespace Blockchain.Tests
         public void TestDiaParImpar()
         {
             Manager man = Manager.Instance;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
             DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
@@ -177,7 +177,7 @@ namespace Blockchain.Tests
         {
             Manager man = Manager.Instance;
             ulong p = 58;
-            DateTime ini = new DateTime(2001, 06, 07, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
             man.Inicializar(ini);
             DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
             DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
