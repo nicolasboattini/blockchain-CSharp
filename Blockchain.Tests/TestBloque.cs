@@ -73,8 +73,8 @@ namespace Blockchain.Tests
             Assert.AreEqual("573f2dd49949e06df958e50cbbe1e8d159d337511fec8970ac87a3cc77ccd77d", b1.GetPrevHash());
             Assert.AreEqual("0760bd9bdbcdfa3310a71cd9b47e90ced866695e77054700d93c8d8b2365f8d6", b1.GetHash());
             Assert.AreEqual("0760bd9bdbcdfa3310a71cd9b47e90ced866695e77054700d93c8d8b2365f8d6", b2.GetPrevHash());
-            Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b2.GetHash());
-            Assert.AreEqual("0e20c629b95581c88c80c9735ce68e88789449646c28238dacdba37bed14cfeb", b3.GetPrevHash());
+            Assert.AreEqual("07d7d016e9d1ac3794bc8a374f04a9023424e09a9fcb83de5e358ad572e46bf8", b2.GetHash());
+            Assert.AreEqual("07d7d016e9d1ac3794bc8a374f04a9023424e09a9fcb83de5e358ad572e46bf8", b3.GetPrevHash());
         }
         [TestMethod]
         public void TestBloqueToArray()
@@ -133,8 +133,7 @@ namespace Blockchain.Tests
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
             man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
             Bloque b1 = man.GetBloqueIndice(1);
-            Bloque b2 = man.GetBloqueIndice(2);
-            Assert.AreEqual("abc", b1.GetHash());
+            Bloque b2 = man.GetBloqueIndice(2);            
             Assert.AreEqual("abc", b2.GetHash());
             Assert.AreEqual(b1, man.GetBloquePorHash("0abf21bfdad9fb66a86645091a96380331ecfdc1f5cd8b1b8ed102c4bed206c9"));
             Assert.AreEqual(b2, man.GetBloquePorHash("05bd8185190ee6bd294fd3993825b6d2e4fe851a1164291e9ecb55b852bbbcf6"));
@@ -151,7 +150,7 @@ namespace Blockchain.Tests
             Bloque b1 = man.GetBloqueIndice(1);
             Assert.AreEqual("06/07/2001 12:30:00", b1.GetFecha().ToString());
             Assert.AreEqual("certmed.pdf", b1.GetFileHash());
-            Assert.AreEqual("031df73849ef340b02e8442b9cc9b1afdf78efae02041f2cc4962af80e8ad357", b1.GetHash());
+            Assert.AreEqual("0760bd9bdbcdfa3310a71cd9b47e90ced866695e77054700d93c8d8b2365f8d6", b1.GetHash());
             Assert.AreEqual(1, b1.GetIndice());
             Assert.AreEqual("enfermedad", b1.GetMotivo());
             Assert.AreEqual("manuel", b1.GetNombre());
