@@ -16,7 +16,6 @@ namespace Blockchain
         {
             Inicializar(fechatest);
         }
-
         public static Manager Instance
         {
             get
@@ -28,8 +27,7 @@ namespace Blockchain
 
                 return instance;
             }
-        }
-        
+        }        
         public int GetI()
         {
             return this.i;
@@ -50,7 +48,6 @@ namespace Blockchain
             gen.ModHash(Hash256(gen));
             BlockChain.Add(gen);
         }
-
         public void AgregarBloque(string pnom, string pmot, string pfhash)
         {
             AgregarBloque(pnom, pmot, pfhash, DateTime.Now);
@@ -116,6 +113,5 @@ namespace Blockchain
             }
             return null;
         }
-
     }
 }

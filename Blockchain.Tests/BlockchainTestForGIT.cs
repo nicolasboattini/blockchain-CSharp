@@ -1,13 +1,13 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Blockchain;
 using System;
 
 namespace Blockchain.Tests
 {
     [TestClass]
-    public class TestBloque
+    public class BlockChainTestForGIT
     {
-        
+
         [TestMethod]
         public void TestDeHash_CompararHashes()
         {
@@ -133,7 +133,7 @@ namespace Blockchain.Tests
             man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
             man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
             Bloque b1 = man.GetBloqueIndice(1);
-            Bloque b2 = man.GetBloqueIndice(2);            
+            Bloque b2 = man.GetBloqueIndice(2);
             Assert.AreEqual(b1, man.GetBloquePorHash("0abf21bfdad9fb66a86645091a96380331ecfdc1f5cd8b1b8ed102c4bed206c9"));
             Assert.AreEqual(b2, man.GetBloquePorHash("0b458dc43fd73a0ef31a5c02fdd0b98361600e5f3b42612a0908d1a921d4b19d"));
         }
@@ -181,12 +181,13 @@ namespace Blockchain.Tests
             man.Inicializar(ini);
             DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
             DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
-            for(int i=1; i<=100; i++)
+            for (int i = 1; i <= 100; i++)
             {
                 if (i % 2 == 0)
                 {
                     man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechapar);
-                } else if (i % 2 != 0)
+                }
+                else if (i % 2 != 0)
                 {
                     man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechaimpar);
                 }
@@ -207,5 +208,4 @@ namespace Blockchain.Tests
         }
 
     }
-    
 }

@@ -27,7 +27,6 @@ namespace Blockchain
         {
             this.Indice = indi;
         }
-
         public string Nombre;
         public string GetNombre()
         {
@@ -85,13 +84,7 @@ namespace Blockchain
         private void SetFecha(DateTime pfech)
         {
             this.Fecha = pfech;
-        }
-
-
-        public Bloque()
-        {
-        }
-        
+        }                
         public Bloque(long pindi, string pnom, string pmot, string pfhash, string pprehash, DateTime pfech)
         {
             SetNonce(1);
@@ -103,18 +96,15 @@ namespace Blockchain
             SetPrevHash(pprehash);
             SetHash("0");
         }
-
         public override string ToString()
         {
             return string.Concat(Nonce, Indice, Nombre, Motivo, FileHash, PrevHash, Fecha.ToString());
         }
-
         public byte[] ToByteArray()
         {
             var cadena = this.ToString();
             byte[] bytes = Encoding.UTF8.GetBytes(cadena);
             return bytes;
         }
-
     }
 }
