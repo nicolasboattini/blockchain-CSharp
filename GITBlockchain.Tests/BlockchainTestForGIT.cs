@@ -2,7 +2,7 @@
 using Blockchain;
 using System;
 
-namespace Blockchain.Tests
+namespace GITBlockchain.Tests
 {
     [TestClass]
     public class BlockChainTestForGIT
