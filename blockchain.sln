@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain", "Blockchain\Bl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blockchain.Tests", "Blockchain.Tests\Blockchain.Tests.csproj", "{A48B53FD-CE8D-4431-848E-2AB55D3185AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GITBlockchain.Tests", "GITBlockchain.Tests\GITBlockchain.Tests.csproj", "{54F79C32-D7D6-430D-BDE2-60C040E56D77}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{A48B53FD-CE8D-4431-848E-2AB55D3185AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A48B53FD-CE8D-4431-848E-2AB55D3185AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A48B53FD-CE8D-4431-848E-2AB55D3185AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{54F79C32-D7D6-430D-BDE2-60C040E56D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{54F79C32-D7D6-430D-BDE2-60C040E56D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{54F79C32-D7D6-430D-BDE2-60C040E56D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{54F79C32-D7D6-430D-BDE2-60C040E56D77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
