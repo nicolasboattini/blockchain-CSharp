@@ -136,6 +136,7 @@ namespace Blockchain.Tests
             Bloque b2 = man.GetBloqueIndice(2);
             Assert.AreEqual(b1, man.GetBloquePorHash("0abf21bfdad9fb66a86645091a96380331ecfdc1f5cd8b1b8ed102c4bed206c9"));
             Assert.AreEqual(b2, man.GetBloquePorHash("0b458dc43fd73a0ef31a5c02fdd0b98361600e5f3b42612a0908d1a921d4b19d"));
+            Assert.AreEqual(null, man.GetBloquePorHash("noexisteestehash"));
         }
         [TestMethod]
         public void TestDeBloque()
