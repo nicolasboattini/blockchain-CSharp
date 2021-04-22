@@ -62,6 +62,35 @@ namespace Blockchain
             BlockChain.Add(block);
             Incrementar_i();
         }
+        public Bloque GetUltimoBloque()
+        {
+            return BlockChain.ElementAt(GetI()-1);
+        }
+        public int GetCantidadDeBloques()
+        {
+            return GetI();
+        }
+        public bool VerificarCadena()
+        {            
+            bool rehash;
+            bool check = true;
+            bool hashanterior;
+            for (int y=0; y<GetI(); y++)
+            {                
+                if (y == 0)
+                {                    
+                    hashanterior = (GetBloqueIndice(y).GetPrevHash() == "00000");
+                }
+                else
+                {
+                    hashanterior = (GetBloqueIndice(y).GetPrevHash() == GetBloqueIndice(y - 1).GetHash());
+                }
+                rehash = (GetBloqueIndice(y).GetHash() == Hash256(GetBloqueIndice(y)));
+
+                check = ((rehash & hashanterior) & check);                
+            }
+            return check;
+        }       
         public string HashCondicional(Bloque block)
         {
             string phash = Hash256(block);            
