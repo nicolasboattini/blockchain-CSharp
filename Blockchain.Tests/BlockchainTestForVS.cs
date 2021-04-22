@@ -136,6 +136,18 @@ namespace Blockchain.Tests
             Assert.AreEqual("05bd8185190ee6bd294fd3993825b6d2e4fe851a1164291e9ecb55b852bbbcf6", b2.GetHash());
             Assert.AreEqual(b1, man.GetBloquePorHash("0758d34f16f9de02de5933e3e0fb6d5fcc727b2d69fd8255a2d4ae9ce329dac6"));
             Assert.AreEqual(b2, man.GetBloquePorHash("05bd8185190ee6bd294fd3993825b6d2e4fe851a1164291e9ecb55b852bbbcf6"));
+            
+            
+        }
+        [TestMethod]
+        public void TestDeBusquedaPorHash_VerificaNullCuandoNoExisteBloque()
+        {
+            Manager man = Manager.Instance;
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.Inicializar(ini);
+            DateTime pfech = new DateTime(2001, 6, 15, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
             Assert.AreEqual(null, man.GetBloquePorHash("noexisteestehash"));
         }
         [TestMethod]
@@ -206,6 +218,61 @@ namespace Blockchain.Tests
             Bloque b90 = man.GetBloqueIndice(90);
             Assert.AreEqual("00bffae1ff83525f39ec4f3fd3c0bc9a754f0d28a0438a0ac018f163e7c07452", b90.GetHash());
             Assert.AreEqual(man.Hash256(b90), "00bffae1ff83525f39ec4f3fd3c0bc9a754f0d28a0438a0ac018f163e7c07452");
+        }
+        [TestMethod]
+        public void VerificarCadena()
+        {
+            Manager man = Manager.Instance;            
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.Inicializar(ini);
+            DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechapar);
+                }
+                else if (i % 2 != 0)
+                {
+                    man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechaimpar);
+                }
+            }
+            bool esvalida = man.VerificarCadena();
+            Assert.IsTrue(esvalida);
+        }
+        [TestMethod]
+        public void TestDeTraerUltimoBloque()
+        {
+            Manager man = Manager.Instance;
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.Inicializar(ini);
+            DateTime fechapar = new DateTime(2001, 6, 12, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            DateTime fechaimpar = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            for (int i = 1; i <= 100; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechapar);
+                }
+                else if (i % 2 != 0)
+                {
+                    man.AgregarBloque(String.Concat("bloque", i.ToString(), "@gmail.com"), "motivo", "motivo.doc", fechaimpar);
+                }
+            }
+            Assert.AreEqual(man.GetBloqueIndice(100), man.GetUltimoBloque());
+        }
+        [TestMethod]
+        public void TestDeCantidadDeBloques()
+        {
+            Manager man = Manager.Instance;
+            DateTime ini = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.Inicializar(ini);
+            DateTime pfech = new DateTime(2001, 6, 7, 12, 30, 00, 00, System.DateTimeKind.Utc);
+            man.AgregarBloque("manuel", "enfermedad", "certmed.pdf", pfech);
+            man.AgregarBloque("jose", "vacaciones", "solicitud.doc", pfech);
+            man.AgregarBloque("arturo", "licencia", "licencia.pdf", pfech);
+            Assert.AreEqual(4, man.GetCantidadDeBloques()); 
         }
     }    
 }
